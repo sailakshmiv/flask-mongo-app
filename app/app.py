@@ -2,18 +2,20 @@
 
 from flask import Flask, render_template, url_for
 from flask import Response
-from flask.ext.pymongo import PyMongo
+from flask.ext.mongoengine import MongoEngine
+from mongoengine import *
 import json, os, datetime
 
 app = Flask(__name__)
 
 ##alternate db config settings
 app.config['MONGO_DBNAME'] = 'app_db'
-#app.config['MONGO_HOST'] = 'localhost'
-#app.config['MONGO_PORT'] = 27017
-#app.config['MONGO_USERNAME'] = 'flask'
-#app.config['MONGO_PASSWORD'] = 'flask123'
-mongo = PyMongo(app, config_prefix='MONGO')
+app.config['MONGO_HOST'] = '0.0.0.0'
+app.config['MONGO_PORT'] = 27017
+app.config['MONGO_USERNAME'] = ''
+app.config['MONGO_PASSWORD'] = ''
+mongo = connect("app_db", host="127.0.0.1", port=27017)
+
 
 @app.route("/")
 def home():
